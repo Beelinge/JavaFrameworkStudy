@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：命名空间，用于隔离sql，还有一个很重要的作用，Mapper动态代理开发的时候使用，需要指定Mapper的类路径 -->
+<mapper namespace="mapper.OrderMapper">
+	<resultMap type="com.xx.pojo.Order" id="orderResultMap">
+		<result property="userId" column="user_id"/>
+	</resultMap>
+	<!-- 查询所有的订单数据 -->
+	<select id="queryOrderAll" resultMap="orderResultMap">
+		SELECT id, user_id,
+		number,
+		createtime, note FROM orders
+	</select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：命名空间，用于隔离sql -->
+<!-- 还有一个很重要的作用，使用动态代理开发DAO，1. namespace必须和Mapper接口类路径一致 -->
+<mapper namespace="mapper.UserMapper">
+	<!-- 根据用户id查询用户 -->
+	<!-- 2. id必须和Mapper接口方法名一致 -->
+	<!-- 3. parameterType必须和接口方法参数类型一致 -->
+	<!-- 4. resultType必须和接口方法返回值类型一致 -->
+	<select id="queryUserByQueryVo" parameterType="com.xx.pojo.QueryVo"
+		resultType="com.xx.pojo.User">
+		select * from user where username like '%${user.username}%'
+	</select>
+	
+	<!-- 根据条件查询用户 -->
+	<!-- <select id="queryUserByWhere" parameterType="com.xx.pojo.User" resultType="com.xx.pojo.User">
+		SELECT id, username, birthday, sex, address FROM `user`
+		WHERE sex = #{sex} AND username LIKE
+		'%${username}%'
+	</select> -->
+	
+	<select id="queryUserByWhere" parameterType="com.xx.pojo.User" resultType="com.xx.pojo.User">
+		SELECT id, username, birthday, sex, address FROM `user`
+		<where>
+		<if test="sex !=null and sex !=''">
+		AND sex = #{sex}
+		</if>
+		<if test="username !=null and username !=''">
+		AND username LIKE '%${username}%'
+		</if>
+		</where>
+	</select>
+</mapper>
