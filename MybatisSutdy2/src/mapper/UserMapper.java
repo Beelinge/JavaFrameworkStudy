@@ -28,4 +28,10 @@ public interface UserMapper {
 	 * @return
 	 */
 	List<User> queryUserByWhere(User user);
+	
+	/**
+	 * 一对多关联
+	 * @return
+	 */
+	List<User> queryUserOrders();
 }

@@ -32,4 +32,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		</where>
 	</select>
+	
+	<!-- 一对多查询 -->
+	<resultMap type="com.xx.pojo.User" id="userOrdersResultMap">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="birthday" column="birthday"/>
+		<result property="sex" column="sex"/>
+		<result property="address" column="address"/>
+		
+		<!-- 配置一对多的关系 -->
+		<collection property="orders" javaType="list" ofType="com.xx.pojo.Order">
+			<!-- 配置主键，是关联Order的唯一标识 -->
+			<id property="id" column="oid"/>
+			<result property="number" column="number" />
+			<result property="createtime" column="createtime" />
+			<result property="note" column="note" />
+		</collection>
+	</resultMap>
+	<!-- 一对多关联，查询订单同时查询该用户下的订单 -->
+	<select id="queryUserOrders" resultMap="userOrdersResultMap">
+		SELECT u.id, u.username, u.birthday, u.sex, u.address, o.id oid, o.number,o.createtime, o.note
+		FROM
+		user u
+		LEFT JOIN orders o ON u.id=o.user_id
+	</select>
 </mapper>

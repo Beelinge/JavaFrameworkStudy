@@ -75,4 +75,39 @@ public class MybatisMapperTest {
 		
 		sqlSession.close();
 	}
+	
+	@Test
+	public void testQueryOrderUserResultMap() throws Exception {
+		SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+		InputStream input = Resources.getResourceAsStream("SqlMapConfig.xml");
+		SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(input);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+	    List<Order> orders = mapper.queryOrderUserResultMap();
+		for (Order o : orders) {
+			System.out.println(o);
+		}
+		
+		sqlSession.close();
+	}
+	
+	@Test
+	//一对多
+	public void testQueryUserOrders() throws Exception {
+		SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+		InputStream input = Resources.getResourceAsStream("SqlMapConfig.xml");
+		SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(input);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+	    List<User> users = mapper.queryUserOrders();
+		for (User u : users) {
+			System.out.println(u);
+		}
+		
+		sqlSession.close();
+	}
 }

@@ -18,6 +18,11 @@ public class Order  implements Serializable{
     private Date createtime;
 
     private String note;
+    
+    /**
+     * 一对一关联
+     */
+    private User user;
 
     public Integer getId() {
         return id;
@@ -58,6 +63,16 @@ public class Order  implements Serializable{
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+    
+    
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public String toString() {

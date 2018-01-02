@@ -2,7 +2,6 @@ package com.xx.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 public class User implements Serializable {
 	/**
@@ -14,13 +13,9 @@ public class User implements Serializable {
 	private String sex;// 性别
 	private Date birthday;// 生日
 	private String address;// 地址
-	
-	/**
-	 * 一对多关联
-	 */
-	private List<Order> orders;
 
 	public User() {}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,14 +45,6 @@ public class User implements Serializable {
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	
-	
-	public List<Order> getOrders() {
-		return orders;
-	}
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
 	}
 	@Override
 	public String toString() {

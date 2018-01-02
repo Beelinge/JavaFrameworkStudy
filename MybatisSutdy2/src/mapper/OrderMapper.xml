@@ -13,4 +13,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		number,
 		createtime, note FROM orders
 	</select>
+	
+	<resultMap type="com.xx.pojo.Order" id="orderUserResultMap">
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="number" column="number"/>
+		<result property="createtime" column="createtime"/>
+		<result property="note" column="note"/>
+		
+		<!-- association ：配置一对一属性 -->
+		<!-- property:order里面的User属性名 -->
+		<!-- javaType:属性类型 -->
+		<association property="user" javaType="com.xx.pojo.User">
+			<id property="id" column="id"/>
+			<result property="username" column="username"/>
+			<result property="address" column="address"/>
+		</association>
+		
+	</resultMap>
+	
+	<!-- 一对一关联，查询订单，订单内部包含用户属性 -->
+	<select id="queryOrderUserResultMap" resultMap="orderUserResultMap">
+		SELECT o.id, o.user_id, o.number, o.createtime, o.note, u.username, u.address
+		FROM
+		orders o
+		LEFT JOIN
+		user u
+		ON
+		o.user_id = u.id
+	</select>
 </mapper>
