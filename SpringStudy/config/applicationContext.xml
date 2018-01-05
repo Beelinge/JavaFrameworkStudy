@@ -8,6 +8,38 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<bean id="userDaoImpl" class="com.xx.DAO.UserDaoImpl"></bean>
+	<!-- scope 1.singleton:默认值，单例; 2.prototype:多例的 -->
+	<bean id="userDaoImpl" class="com.xx.DAO.UserDaoImpl" scope="singleton"></bean>
 
+	<!--  Spring 生成 Bean 的时候三种方式
+	【无参数的构造方法的方式:】
+	【静态工厂实例化的方式】factory-method
+	【实例工厂实例化的方式】factory-bean, factory-method
+	 -->
+	 
+	 <!-- Spring 的 Bean 的属性注入: -->
+	 <bean id="dog" class="com.xx.pojo.Dog">
+		 <!-- 1.【构造方法的方式注入属性】 -->
+	 	<!-- <constructor-arg name="name" value="laifu"/> -->
+	 	<!-- 2.【set 方法的方式注入属性】 -->
+	 	<property name="name" value="alai"/>
+	 </bean>
+	 
+	 <!-- 名称空间 p 的属性注入的方式:Spring2.x 版本后提供的方式. -->
+	 <bean id="person" class="com.xx.pojo.Person" p:name="Beelin">
+	 	<property name="dog" ref="dog"/>
+	 </bean>
+	 
+	 <!-- SpEL 的方式的属性注入:Spring3.x 版本后提供的方式.
+	 语法:#{ SpEL }
+	  -->
+	  <bean id="dog1" class="com.xx.pojo.Dog">
+	 	<property name="name" value="#{'awang'}"/>
+	 </bean>
+	 <bean id="person2" class="com.xx.pojo.Person" scope="prototype">
+	 	<property name="name" value="#{dog1.say()}" />
+	 	<property name="dog" ref="dog1"/>
+	 </bean>
+	 
+	 <!-- Spring 的复杂类型的注入 -->
 </beans>
