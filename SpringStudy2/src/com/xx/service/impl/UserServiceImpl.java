@@ -1,10 +1,23 @@
 package com.xx.service.impl;
 
-import com.xx.domain.User;
 import com.xx.service.UserService;
 
 public class UserServiceImpl implements UserService{
-	public void save(User user) {
-		System.out.println("user save success");
+	@Override
+	public void save() {
+		System.out.println("保存用户!");
+		//int i = 1/0;
+	}
+	@Override
+	public void delete() {
+		System.out.println("删除用户!");
+	}
+	@Override
+	public void update() {
+		System.out.println("更新用户!");
+	}
+	@Override
+	public void find() {
+		System.out.println("查找用户!");
 	}
 }
